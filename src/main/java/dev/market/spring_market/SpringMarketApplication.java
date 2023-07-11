@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringMarketApplication {
 
 	public static void main(String[] args) {
+		System.out.println("################# ¼º°ø");
 		SpringApplication.run(SpringMarketApplication.class, args);
 	}
 
