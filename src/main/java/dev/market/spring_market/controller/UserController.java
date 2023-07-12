@@ -17,13 +17,11 @@ public class UserController {
     //회원 마이페이지 정보 반환API
     @GetMapping("/{userId}")
     public UserResponse getUserInfo(@PathVariable Long userId) {
-        System.out.println("컨트롤러 실행");
         return userService.findById(userId);
     }
 
     @PatchMapping("/{userId}")
     public UserResponse deleteUserInfo(@PathVariable Long userId) {
-
         return userService.deleteUser(userId);
     }
 
