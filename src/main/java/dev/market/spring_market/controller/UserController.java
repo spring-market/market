@@ -32,6 +32,4 @@ public class UserController {
         UserResponse userResponse = userService.registerUser(userRequest);
         return userResponse;
    }
-
-
 }
