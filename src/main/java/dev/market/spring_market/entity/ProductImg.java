@@ -1,9 +1,16 @@
 package dev.market.spring_market.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+@Getter
 @Entity
+@Table(name = "product_image")
+@NoArgsConstructor
 public class ProductImg {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_image_id")
@@ -18,10 +25,10 @@ public class ProductImg {
     private String productImage;
 
     @Column(name = "created_at")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
 
     private int status;
 
