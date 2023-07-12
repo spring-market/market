@@ -19,6 +19,14 @@ public class ProductServiceImpl implements ProductService {
     public ProductServiceImpl(ProductRepo productRepo) {
         this.productRepo = productRepo;
     }
+
+    public List<ProductImgDTO> getProductImgList(Product p) {
+        List<ProductImgDTO> productImgDTOS = p.getProductImages().stream()
+                .map(ProductImgDTO::from)
+                .collect(Collectors.toList());
+        return productImgDTOS;
+    }
+
     @Override
     public List<ProductDTO> findAll() {
         List<ProductDTO> productDTOS = new ArrayList<>();
@@ -26,9 +34,7 @@ public class ProductServiceImpl implements ProductService {
         Iterable<Product> products = productRepo.findAll();
 
         for(Product p : products) {
-            List<ProductImgDTO> productImgDTOS = p.getProductImages().stream()
-                    .map(ProductImgDTO::from)
-                    .collect(Collectors.toList());
+            List<ProductImgDTO> productImgDTOS = getProductImgList(p);
 
             // Product -> ProductDTO 변환
             ProductDTO productDTO = ProductDTO.builder()
@@ -41,10 +47,20 @@ public class ProductServiceImpl implements ProductService {
             // productDTOS.add()
             productDTOS.add(productDTO);
         }
-
-
         return productDTOS;
     }
 
+    @Override
+    public ProductDTO findById(Long productId) {
+        Product p = productRepo.getReferenceById(productId);
+
+        List<ProductImgDTO> productImgDTOS = getProductImgList(p);
+
+        return ProductDTO.builder()
+                .title(p.getTitle()).price(p.getPrice())
+                .contents(p.getContents()).createdAt(p.getCreatedAt())
+                .productImages(productImgDTOS)
+                .build();
+    }
 
 }
