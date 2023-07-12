@@ -35,6 +35,7 @@ public class User extends BaseEntity {
 
     private char gender;
 
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Product> products;
 
