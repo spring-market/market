@@ -43,4 +43,8 @@ public class User {
         this.nickname = nickname;
         this.gender = gender;
     }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

@@ -20,4 +20,9 @@ public class UserController {
        return userService.findById(userId);
    }
 
+   @PatchMapping("/{userId}")
+    public UserResponse deleteUserInfo(@PathVariable Long userId) {
+
+       return userService.deleteUser(userId);
+   }
 }
