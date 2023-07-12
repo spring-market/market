@@ -1,5 +1,6 @@
 package dev.market.spring_market.controller;
 
+import dev.market.spring_market.dto.UserRequest;
 import dev.market.spring_market.dto.UserResponse;
 import dev.market.spring_market.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,4 +26,10 @@ public class UserController {
 
        return userService.deleteUser(userId);
    }
+
+   @PostMapping("/register")
+    public UserResponse registerUser(UserRequest userRequest){
+
+   }
+
 }
