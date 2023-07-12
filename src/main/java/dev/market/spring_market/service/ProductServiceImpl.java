@@ -1,7 +1,7 @@
 package dev.market.spring_market.service;
 
-import dev.market.spring_market.DTO.ProductDTO;
-import dev.market.spring_market.DTO.ProductImgDTO;
+import dev.market.spring_market.dto.ProductResponse;
+import dev.market.spring_market.dto.ProductImgReqRes;
 import dev.market.spring_market.entity.Product;
 import dev.market.spring_market.repository.ProductRepo;
 import org.springframework.stereotype.Service;
@@ -20,28 +20,29 @@ public class ProductServiceImpl implements ProductService {
         this.productRepo = productRepo;
     }
 
-    public List<ProductImgDTO> getProductImgList(Product p) {
-        List<ProductImgDTO> productImgDTOS = p.getProductImages().stream()
-                .map(ProductImgDTO::from)
+    public List<ProductImgReqRes> getProductImgList(Product p) {
+        List<ProductImgReqRes> productImgDTOS = p.getProductImages().stream()
+                .map(ProductImgReqRes::from)
                 .collect(Collectors.toList());
         return productImgDTOS;
     }
 
     @Override
-    public List<ProductDTO> findAll() {
-        List<ProductDTO> productDTOS = new ArrayList<>();
+    public List<ProductResponse> findAll() {
+        List<ProductResponse> productDTOS = new ArrayList<>();
 
         Iterable<Product> products = productRepo.findAll();
 
         for(Product p : products) {
-            List<ProductImgDTO> productImgDTOS = getProductImgList(p);
+            List<ProductImgReqRes> productImgDTOS = getProductImgList(p);
 
             // Product -> ProductDTO 변환
-            ProductDTO productDTO = ProductDTO.builder()
+            ProductResponse productDTO = ProductResponse.builder()
                     .title(p.getTitle())
                     .price(p.getPrice())
                     .createdAt(p.getCreatedAt())
                     .productImages(productImgDTOS)
+                    .categoryId(p.getCategory().getCategoryId())
                     .build();
 
             // productDTOS.add()
@@ -51,15 +52,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO findById(Long productId) {
+    public ProductResponse findById(Long productId) {
         Product p = productRepo.getReferenceById(productId);
 
-        List<ProductImgDTO> productImgDTOS = getProductImgList(p);
+        List<ProductImgReqRes> productImgDTOS = getProductImgList(p);
 
-        return ProductDTO.builder()
+        return ProductResponse.builder()
                 .title(p.getTitle()).price(p.getPrice())
                 .contents(p.getContents()).createdAt(p.getCreatedAt())
                 .productImages(productImgDTOS)
+                .categoryId(p.getCategory().getCategoryId())
                 .build();
     }
 

@@ -1,6 +1,6 @@
 package dev.market.spring_market.controller;
 
-import dev.market.spring_market.DTO.ProductDTO;
+import dev.market.spring_market.dto.ProductResponse;
 import dev.market.spring_market.entity.Product;
 import dev.market.spring_market.service.ProductService;
 import org.springframework.stereotype.Controller;
@@ -19,12 +19,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductDTO> findAll() {
+    public List<ProductResponse> findAll() {
         return productService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ProductDTO findById(@PathVariable Long id) {
+    public ProductResponse findById(@PathVariable Long id) {
         return productService.findById(id);
     }
 }
