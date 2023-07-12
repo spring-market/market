@@ -25,20 +25,20 @@ public class ProductRequest {
     private String contents;
 
 
-	private List<ProductImgReqRes> productImages;
+	private List<ProductImgRequest> productImgRequests;
     
     @NotNull
     private Long categoryId;
 
     @Builder
 	public ProductRequest(@NotNull Long userId, @NotNull @Size(min = 1, max = 45) String title, @NotNull int price,
-			@Size(min = 0, max = 255) String contents, List<ProductImgReqRes> productImages, @NotNull Long categoryId) {
+						  @Size(min = 0, max = 255) String contents, List<ProductImgRequest> productImgRequest, @NotNull Long categoryId) {
 		super();
 		this.userId = userId;
 		this.title = title;
 		this.price = price;
 		this.contents = contents;
-		this.productImages = productImages;
+		this.productImgRequests = productImgRequest;
 		this.categoryId = categoryId;
 	}
     

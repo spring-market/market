@@ -20,7 +20,7 @@ public class ProductResponse {
 
     private LocalDateTime createdAt;
 
-    private List<ProductImgReqRes> productImages;
+    private List<ProductImgResponse> productImages;
 
     private Long categoryId;
 }

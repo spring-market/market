@@ -1,6 +1,9 @@
 package dev.market.spring_market.service;
 
+import dev.market.spring_market.dto.ProductImgRequest;
 import dev.market.spring_market.entity.Product;
+import dev.market.spring_market.entity.ProductImg;
+import dev.market.spring_market.repository.ProductImgRepo;
 import dev.market.spring_market.repository.ProductRepo;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import dev.market.spring_market.dto.ProductImgReqRes;
+import dev.market.spring_market.dto.ProductImgResponse;
 import dev.market.spring_market.dto.ProductRequest;
 import dev.market.spring_market.dto.ProductResponse;
 import dev.market.spring_market.repository.CategoryRepo;
@@ -20,19 +23,21 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepo productRepo;
     private final CategoryRepo categoryRepo;
+    private final ProductImgRepo productImgRepo;
     private final UserRepo userRepo;
-    
 
-    public ProductServiceImpl(ProductRepo productRepo, CategoryRepo categoryRepo, UserRepo userRepo) {
+
+    public ProductServiceImpl(ProductRepo productRepo, CategoryRepo categoryRepo, ProductImgRepo productImgRepo, UserRepo userRepo) {
 		super();
 		this.productRepo = productRepo;
 		this.categoryRepo = categoryRepo;
+        this.productImgRepo = productImgRepo;
 		this.userRepo = userRepo;
 	}
 
-	public List<ProductImgReqRes> getProductImgList(Product p) {
-        List<ProductImgReqRes> productImgDTOS = p.getProductImages().stream()
-                .map(ProductImgReqRes::from)
+	public List<ProductImgResponse> getProductImgList(Product p) {
+        List<ProductImgResponse> productImgDTOS = p.getProductImages().stream()
+                .map(ProductImgResponse::from)
                 .collect(Collectors.toList());
         return productImgDTOS;
     }
@@ -44,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
         Iterable<Product> products = productRepo.findAll();
 
         for(Product p : products) {
-            List<ProductImgReqRes> productImgDTOS = getProductImgList(p);
+            List<ProductImgResponse> productImgDTOS = getProductImgList(p);
 
             // Product -> ProductDTO 변환
             ProductResponse productDTO = ProductResponse.builder()
@@ -65,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponse findById(Long productId) {
         Product p = productRepo.getReferenceById(productId);
 
-        List<ProductImgReqRes> productImgDTOS = getProductImgList(p);
+        List<ProductImgResponse> productImgDTOS = getProductImgList(p);
 
         return ProductResponse.builder()
                 .title(p.getTitle()).price(p.getPrice())
@@ -84,7 +89,34 @@ public class ProductServiceImpl implements ProductService {
 					.contents(productRequest.getContents())
 					.category(categoryRepo.getReferenceById(productRequest.getCategoryId()))
 					.build();
-		productRepo.save(product);
-	}
 
+		Product p = productRepo.save(product);
+
+
+        List<ProductImgRequest> productImgRequests = productRequest.getProductImgRequests();
+
+        for(ProductImgRequest pr : productImgRequests) {
+            ProductImg productImg = ProductImg.builder()
+                    .product(p)
+                    .productImage(pr.getProductImage())
+                    .build();
+            productImgRepo.save(productImg);
+        }
+    }
+
+
+    @Override
+    public void update(Long id, ProductRequest productRequest) {
+        Product oldProduct = productRepo.getReferenceById(id);
+
+        Product newProduct = Product.builder()
+                .user(userRepo.getReferenceById(productRequest.getUserId()))
+                .title(productRequest.getTitle())
+                .price(productRequest.getPrice())
+                .contents(productRequest.getContents())
+                .category(categoryRepo.getReferenceById(productRequest.getCategoryId()))
+                
+                .build();
+
+    }
 }

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import dev.market.spring_market.common.BaseEntity;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -27,7 +29,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class Product {
+public class Product extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     private Long productId;
@@ -40,42 +42,36 @@ public class Product {
     @ManyToOne
     private User user;
 
-
     private String title;
 
     private int price;
 
     private String contents;
 
-    @Column(name = "created_at")
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
-    
-    private int status;
-
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
     private List<ProductImg> productImages;
 
     @Builder
-	public Product(Long productId, Category category, User user, String title, int price, String contents,
-			LocalDateTime createdAt, LocalDateTime updatedAt, int status, List<ProductImg> productImages) {
-		super();
-		this.productId = productId;
+	public Product(Long productId, Category category, User user, String title, int price, String contents, List<ProductImg> productImages) {
+        super(1);
+        this.productId = productId;
 		this.category = category;
 		this.user = user;
 		this.title = title;
 		this.price = price;
 		this.contents = contents;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-		this.status = status;
 		this.productImages = productImages;
 	}
-    
-    
+
+    @Builder
+    public Product(LocalDateTime createdAt, int status, Long productId, Category category, User user, String title, int price, String contents, List<ProductImg> productImages) {
+        super(createdAt, status);
+        this.productId = productId;
+        this.category = category;
+        this.user = user;
+        this.title = title;
+        this.price = price;
+        this.contents = contents;
+        this.productImages = productImages;
+    }
 }

@@ -1,5 +1,6 @@
 package dev.market.spring_market.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

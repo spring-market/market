@@ -9,18 +9,18 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ProductImgReqRes {
+public class ProductImgResponse {
 	@NotNull
     private String productImage;
 
-    public static ProductImgReqRes from(ProductImg productImg) {
+    public static ProductImgResponse from(ProductImg productImg) {
         final String productImage = productImg.getProductImage();
 
-        return ProductImgReqRes.builder().productImage(productImage).build();
+        return ProductImgResponse.builder().productImage(productImage).build();
     }
 
     @Builder
-	public ProductImgReqRes(@NotNull String productImage) {
+	public ProductImgResponse(@NotNull String productImage) {
 		super();
 		this.productImage = productImage;
 	}

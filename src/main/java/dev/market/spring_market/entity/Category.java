@@ -25,7 +25,6 @@ public class Category {
 
     private int status;
 
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Product> products;
 
