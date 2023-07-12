@@ -4,6 +4,7 @@ import dev.market.spring_market.dto.UserRequest;
 import dev.market.spring_market.dto.UserResponse;
 import dev.market.spring_market.entity.User;
 import dev.market.spring_market.repository.UserRepo;
+import dev.market.spring_market.utils.SHA256;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserResponse registerUser(UserRequest userRequest) {
-        User user = new User(userRequest.getUserEmail(),userRequest.getPassword(),userRequest.getNickname(), userRequest.getGender());
+
+        String pwd;
+        try{
+            pwd=SHA256.encrypt(userRequest.getPassword());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new IllegalStateException();
+        }
+        User user = new User(userRequest.getUserEmail(),pwd,userRequest.getNickname(), userRequest.getGender());
         User savedUser = userRepo.save(user);
         UserResponse userResponse = UserResponse.builder().userEmail(savedUser.getUserEmail()).nickname(savedUser.getNickname()).gender(savedUser.getGender()).build();
         return userResponse;
