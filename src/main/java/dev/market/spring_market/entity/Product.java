@@ -1,14 +1,17 @@
 package dev.market.spring_market.entity;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "product")
 @NoArgsConstructor
+@Getter
 public class Product {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
@@ -30,13 +33,13 @@ public class Product {
     private String contents;
 
     @Column(name = "created_at")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
 
     private int status;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
-    private List<ProductImg> productImgs;
+    private List<ProductImg> productImages;
 }
