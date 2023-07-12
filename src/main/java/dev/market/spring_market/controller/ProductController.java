@@ -41,6 +41,6 @@ public class ProductController {
     
     @PostMapping
     public void addProduct(@Valid @RequestBody ProductRequest productRequest) {
-    	Product p = productService.save(productRequest);
+    	productService.save(productRequest);
     }
 }

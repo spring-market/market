@@ -12,6 +12,7 @@ import dev.market.spring_market.dto.ProductImgReqRes;
 import dev.market.spring_market.dto.ProductRequest;
 import dev.market.spring_market.dto.ProductResponse;
 import dev.market.spring_market.repository.CategoryRepo;
+import dev.market.spring_market.repository.UserRepo;
 
 @Service
 
@@ -19,13 +20,14 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepo productRepo;
     private final CategoryRepo categoryRepo;
-
+    private final UserRepo userRepo;
     
 
-    public ProductServiceImpl(ProductRepo productRepo, CategoryRepo categoryRepo) {
+    public ProductServiceImpl(ProductRepo productRepo, CategoryRepo categoryRepo, UserRepo userRepo) {
 		super();
 		this.productRepo = productRepo;
 		this.categoryRepo = categoryRepo;
+		this.userRepo = userRepo;
 	}
 
 	public List<ProductImgReqRes> getProductImgList(Product p) {
@@ -74,17 +76,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
 	@Override
-	public Product save(ProductRequest productRequest) {
+	public void save(ProductRequest productRequest) {
 		Product product = Product.builder()
+					.user(userRepo.getReferenceById(productRequest.getUserId()))
 					.title(productRequest.getTitle())
 					.price(productRequest.getPrice())
 					.contents(productRequest.getContents())
 					.category(categoryRepo.getReferenceById(productRequest.getCategoryId()))
 					.build();
-		Product p = productRepo.save(product);
-		System.out.println(p);
-
-        return p;
+		productRepo.save(product);
 	}
 
 }
