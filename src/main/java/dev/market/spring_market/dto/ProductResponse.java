@@ -1,14 +1,16 @@
 package dev.market.spring_market.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
+
 @Builder
 @Getter
-public class ProductDTO {
+@ToString
+public class ProductResponse {
 
     private String title;
 
@@ -18,5 +20,7 @@ public class ProductDTO {
 
     private LocalDateTime createdAt;
 
-    private List<ProductImgDTO> productImages;
+    private List<ProductImgReqRes> productImages;
+
+    private Long categoryId;
 }

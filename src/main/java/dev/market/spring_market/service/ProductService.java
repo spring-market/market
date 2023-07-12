@@ -1,11 +1,15 @@
 package dev.market.spring_market.service;
 
-import dev.market.spring_market.dto.ProductDTO;
-
 import java.util.List;
 
-public interface ProductService {
-    List<ProductDTO> findAll();
+import dev.market.spring_market.dto.ProductRequest;
+import dev.market.spring_market.dto.ProductResponse;
+import dev.market.spring_market.entity.Product;
 
-    ProductDTO findById(Long productId);
+public interface ProductService {
+    List<ProductResponse> findAll();
+
+    ProductResponse findById(Long productId);
+    
+    Product save(ProductRequest productRequest);
 }
