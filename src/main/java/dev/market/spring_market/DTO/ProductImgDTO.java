@@ -3,9 +3,11 @@ package dev.market.spring_market.DTO;
 import dev.market.spring_market.entity.ProductImg;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Getter
+
 public class ProductImgDTO {
     private String productImage;
 
