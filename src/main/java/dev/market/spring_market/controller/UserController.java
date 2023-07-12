@@ -1,5 +1,6 @@
 package dev.market.spring_market.controller;
 
+import dev.market.spring_market.dto.UserRequest;
 import dev.market.spring_market.dto.UserResponse;
 import dev.market.spring_market.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,17 @@ public class UserController {
     public UserResponse getUserInfo(@PathVariable Long userId){
        System.out.println("컨트롤러 실행");
        return userService.findById(userId);
+   }
+
+   @PatchMapping("/{userId}")
+    public UserResponse deleteUserInfo(@PathVariable Long userId) {
+
+       return userService.deleteUser(userId);
+   }
+
+   @PostMapping("/register")
+    public UserResponse registerUser(UserRequest userRequest){
+
    }
 
 }

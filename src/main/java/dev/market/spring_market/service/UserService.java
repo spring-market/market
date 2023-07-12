@@ -4,4 +4,7 @@ import dev.market.spring_market.dto.UserResponse;
 
 public interface UserService {
     UserResponse findById(Long userId);
+
+    UserResponse deleteUser(Long userId);
 }
+

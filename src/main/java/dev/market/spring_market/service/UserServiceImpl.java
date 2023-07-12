@@ -6,6 +6,7 @@ import dev.market.spring_market.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -22,7 +23,25 @@ public class UserServiceImpl implements UserService{
         }
         User getUser = user.get();
         UserResponse userResponse = UserResponse.builder().userEmail(getUser.getUserEmail()).nickname(getUser.getNickname()).gender(getUser.getGender()).build();
-
         return userResponse;
+
     }
+
+    @Override
+    @Transactional
+    public UserResponse deleteUser(Long userId) {
+        Optional<User> user = userRepo.findById(userId);
+
+        if(!user.isPresent()){
+            throw new IllegalArgumentException();
+        }
+        User getUser = user.get();
+        getUser.setStatus(0);
+
+
+        UserResponse userResponse = UserResponse.builder().userEmail(getUser.getUserEmail()).nickname(getUser.getNickname()).gender(getUser.getGender()).build();
+        return userResponse;
+
+    }
+
 }
