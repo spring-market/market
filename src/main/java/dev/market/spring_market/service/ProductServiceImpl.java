@@ -1,7 +1,7 @@
 package dev.market.spring_market.service;
 
-import dev.market.spring_market.DTO.ProductDTO;
-import dev.market.spring_market.DTO.ProductImgDTO;
+import dev.market.spring_market.dto.ProductDTO;
+import dev.market.spring_market.dto.ProductImgDTO;
 import dev.market.spring_market.entity.Product;
 import dev.market.spring_market.repository.ProductRepo;
 import org.springframework.stereotype.Service;

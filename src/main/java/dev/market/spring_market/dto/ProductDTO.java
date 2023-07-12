@@ -1,11 +1,8 @@
-package dev.market.spring_market.DTO;
+package dev.market.spring_market.dto;
 
-import dev.market.spring_market.entity.ProductImg;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

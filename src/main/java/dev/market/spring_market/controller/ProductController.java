@@ -1,9 +1,7 @@
 package dev.market.spring_market.controller;
 
-import dev.market.spring_market.DTO.ProductDTO;
-import dev.market.spring_market.entity.Product;
+import dev.market.spring_market.dto.ProductDTO;
 import dev.market.spring_market.service.ProductService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
