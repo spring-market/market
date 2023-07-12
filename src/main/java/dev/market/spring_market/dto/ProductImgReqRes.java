@@ -5,9 +5,10 @@ import javax.validation.constraints.NotNull;
 import dev.market.spring_market.entity.ProductImg;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Builder
 @Getter
+@NoArgsConstructor
 public class ProductImgReqRes {
 	@NotNull
     private String productImage;
@@ -17,4 +18,10 @@ public class ProductImgReqRes {
 
         return ProductImgReqRes.builder().productImage(productImage).build();
     }
+
+    @Builder
+	public ProductImgReqRes(@NotNull String productImage) {
+		super();
+		this.productImage = productImage;
+	}
 }

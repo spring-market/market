@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class ProductRequest {
+	@NotNull
+	private Long userId;
+	
 	@NotNull @Size(min = 1, max = 45)
     private String title;
 
@@ -26,15 +29,17 @@ public class ProductRequest {
     
     @NotNull
     private Long categoryId;
-    
+
     @Builder
-    public ProductRequest(@NotNull @Size(min = 1, max = 45) String title, @NotNull int price,
-    		@Size(min = 0, max = 255) String contents, List<ProductImgReqRes> productImages, @NotNull Long categoryId) {
-    	super();
-    	this.title = title;
-    	this.price = price;
-    	this.contents = contents;
-    	this.productImages = productImages;
-    	this.categoryId = categoryId;
-    }
+	public ProductRequest(@NotNull Long userId, @NotNull @Size(min = 1, max = 45) String title, @NotNull int price,
+			@Size(min = 0, max = 255) String contents, List<ProductImgReqRes> productImages, @NotNull Long categoryId) {
+		super();
+		this.userId = userId;
+		this.title = title;
+		this.price = price;
+		this.contents = contents;
+		this.productImages = productImages;
+		this.categoryId = categoryId;
+	}
+    
 }

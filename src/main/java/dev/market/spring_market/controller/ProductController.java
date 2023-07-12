@@ -36,8 +36,7 @@ public class ProductController {
     }
     
     @PostMapping
-    public ProductResponse addProduct(@Valid @RequestBody ProductRequest productRequest) {
-    	ProductResponse productResponse = productService.save(productRequest);
-    	return productResponse;
+    public void addProduct(@Valid @RequestBody ProductRequest productRequest) {
+    	productService.save(productRequest);
     }
 }
