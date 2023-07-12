@@ -14,7 +14,7 @@ public class Category {
     @Column(name = "category_id")
     private Long categoryId;
 
-    private String category;
+    private String name;
 
     @Column(name = "created_at")
     private LocalDate createdAt;
