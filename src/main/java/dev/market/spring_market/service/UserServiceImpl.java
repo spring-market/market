@@ -46,8 +46,6 @@ public class UserServiceImpl implements UserService{
 
     }
 
-
-
     @Override
     public UserResponse registerUser(UserRequest userRequest) {
 
@@ -62,6 +60,16 @@ public class UserServiceImpl implements UserService{
         User user = new User(userRequest.getUserEmail(),pwd,userRequest.getNickname(), userRequest.getGender());
         User savedUser = userRepo.save(user);
         UserResponse userResponse = UserResponse.builder().userEmail(savedUser.getUserEmail()).nickname(savedUser.getNickname()).gender(savedUser.getGender()).build();
+        return userResponse;
+    }
+
+    @Override
+    public UserResponse updateUser(Long userId, UserRequest userRequest) {
+        User user1 = userRepo.getReferenceById(userId);
+       User user = new User(userId,userRequest.getUserEmail(),userRequest.getPassword(),userRequest.getNickname(), userRequest.getGender(),user1.getCreatedAt());
+        User updateUser = userRepo.save(user);
+        UserResponse userResponse = UserResponse.builder().userEmail(updateUser.getUserEmail()).nickname(updateUser.getNickname()).gender(updateUser.getGender()).build();
+
         return userResponse;
     }
 }

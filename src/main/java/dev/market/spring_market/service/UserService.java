@@ -9,5 +9,7 @@ public interface UserService {
     UserResponse deleteUser(Long userId);
 
     UserResponse registerUser(UserRequest userRequest);
+
+    UserResponse updateUser(Long userId,UserRequest userRequest);
 }
 
