@@ -34,4 +34,8 @@ public class BaseEntity {
         this.createdAt=createdAt;
         this.status = status;
     }
+
+    public BaseEntity(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }

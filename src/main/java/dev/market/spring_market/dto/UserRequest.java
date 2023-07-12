@@ -9,9 +9,16 @@ import java.time.LocalDate;
 
 
 @Getter
+@Builder
+@AllArgsConstructor
+
 public class UserRequest {
     private String userEmail;
     private String password;
     private String nickname;
     private char gender;
+
+    public UserRequest() {
+
+    }
 }
