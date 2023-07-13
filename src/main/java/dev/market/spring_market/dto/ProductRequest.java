@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ProductRequest {
+public class ProductRequest extends ProductIdDTO {
 	@NotNull
 	private Long userId;
 	
