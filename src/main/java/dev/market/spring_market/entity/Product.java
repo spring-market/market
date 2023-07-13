@@ -63,8 +63,8 @@ public class Product extends BaseEntity {
 		this.productImages = productImages;
 	}
 
-    @Builder
-    public Product(LocalDateTime createdAt, int status, Long productId, Category category, User user, String title, int price, String contents, List<ProductImg> productImages) {
+
+    public Product(LocalDateTime createdAt, int status, Long productId, Category category, User user, String title, int price, String contents) {
         super(createdAt, status);
         this.productId = productId;
         this.category = category;
@@ -72,6 +72,5 @@ public class Product extends BaseEntity {
         this.title = title;
         this.price = price;
         this.contents = contents;
-        this.productImages = productImages;
     }
 }

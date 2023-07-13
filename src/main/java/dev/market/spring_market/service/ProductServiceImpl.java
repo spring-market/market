@@ -109,14 +109,50 @@ public class ProductServiceImpl implements ProductService {
     public void update(Long id, ProductRequest productRequest) {
         Product oldProduct = productRepo.getReferenceById(id);
 
-        Product newProduct = Product.builder()
-                .user(userRepo.getReferenceById(productRequest.getUserId()))
-                .title(productRequest.getTitle())
-                .price(productRequest.getPrice())
-                .contents(productRequest.getContents())
-                .category(categoryRepo.getReferenceById(productRequest.getCategoryId()))
-                
-                .build();
+//        List<ProductImgRequest> productImgRequests = productRequest.getProductImgRequests();
+//        List<ProductImg> productImages = new ArrayList<>();
+//
+//        for(ProductImgRequest pr : productImgRequests) {
+//            Long imgId = productImgRepo.findByProductImage(pr.getProductImage());
+//
+//            ProductImg productImg = ProductImg.builder()
+//                    .productImageId(imgId)
+//                    .product(oldProduct)
+//                    .productImage(pr.getProductImage())
+//                    .build();
+//
+//            productImages.add(productImg);
+//        }
+
+
+        Product newProduct = new Product(oldProduct.getCreatedAt(),
+                    oldProduct.getStatus(),
+                    id,
+                    categoryRepo.getReferenceById(productRequest.getCategoryId()),
+                    userRepo.getReferenceById(productRequest.getUserId()),
+                    productRequest.getTitle(),
+                    productRequest.getPrice(),
+                    productRequest.getContents()
+                );
+
+        productRepo.save(newProduct);
+    }
+
+    @Override
+    public void delete(Long id) {
+        Product oldProduct = productRepo.getReferenceById(id);
+
+        Product newProduct = new Product(oldProduct.getCreatedAt(),
+                0,
+                id,
+                categoryRepo.getReferenceById(oldProduct.getCategory().getCategoryId()),
+                userRepo.getReferenceById(oldProduct.getUser().getUserId()),
+                oldProduct.getTitle(),
+                oldProduct.getPrice(),
+                oldProduct.getContents()
+        );
+
+        productRepo.save(newProduct);
 
     }
 }

@@ -11,5 +11,7 @@ import java.util.List;
 public interface ProductImgRepo extends JpaRepository<ProductImg, Long> {
     List<ProductImg> findAll();
 
+    List<ProductImg> findByProductImage(String productImage);
+
     ProductImg save(ProductImg productImg);
 }
