@@ -75,15 +75,15 @@ public class UserServiceImpl implements UserService{
     public LoginRes login(Long userId, @RequestBody LoginReq loginReq) {
         User user = userRepo.getReferenceById(userId);
         String pwd = SHA256.encrypt(loginReq.getPassword());
-        if(user.getUserEmail().equals(loginReq.getUserEmail()) && pwd.equals(user.getPassword())){
-           String jwt = jwtService.createJwt(user.getUserId());
+        if (user.getUserEmail().equals(loginReq.getUserEmail()) && pwd.equals(user.getPassword())) {
+            String jwt = jwtService.createJwt(user.getUserId());
 
             LoginRes loginRes = LoginRes.builder().userEmail(user.getUserEmail()).userId(user.getUserId()).jwt(jwt).nickname(user.getNickname()).gender(user.getGender()).build();
             return loginRes;
-        }
-        else{
+        } else {
             throw new IllegalStateException();
         }
+    }
     public UserResponse updateUser(Long userId, UserRequest userRequest) {
         User user1 = userRepo.getReferenceById(userId);
        User user = new User(userId,userRequest.getUserEmail(),userRequest.getPassword(),userRequest.getNickname(), userRequest.getGender(),user1.getCreatedAt());
