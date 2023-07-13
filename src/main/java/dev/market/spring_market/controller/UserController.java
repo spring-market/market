@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/users")
@@ -25,22 +26,25 @@ public class UserController {
         return userService.findById(userId);
     }
 
-    @GetMapping("/login/{userId}")
-    public UserResponse login(@PathVariable Long userId, LoginReq loginReq, HttpServletResponse httpServletResponse) {
-        LoginRes loginRes = userService.login(userId, loginReq);
-        Cookie cookie = new Cookie("jwt", loginRes.getJwt());
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-
-        UserResponse userResponse = UserResponse.builder().userEmail(loginRes.getUserEmail()).gender(loginRes.getGender()).nickname(loginRes.getNickname()).build();
-        httpServletResponse.addCookie(cookie);
-        return userResponse;
+    @PostMapping("/login")
+    public String Login(@RequestBody LoginReq loginReq, HttpSession httpSession){
+        System.out.println("이거 실행됐음");
+        LoginRes loginRes = userService.login(loginReq);
+        httpSession.setAttribute("user",loginRes);
+        return loginRes.getNickname();
+    }
+    @GetMapping("/test")
+    public void test(HttpSession httpSession){
+        LoginRes loginRes = (LoginRes) httpSession.getAttribute("user");
+        System.out.println(loginRes.getUserId());
     }
 
 
-    @PatchMapping("/{userId}")
-    public UserResponse deleteUserInfo(@PathVariable Long userId) {
-        return userService.deleteUser(userId);
+    @PatchMapping("/delete")
+    public UserResponse deleteUserInfo(HttpSession httpSession) {
+        LoginRes loginRes = (LoginRes) httpSession.getAttribute("user");
+
+        return userService.deleteUser(loginRes.getUserId());
     }
 
     @PostMapping("/register")
@@ -50,9 +54,10 @@ public class UserController {
 
    }
 
-   @PatchMapping("/update/{userId}")
-    public UserResponse updateUserInfo(@PathVariable Long userId,@RequestBody UserRequest userRequest) {
-       return userService.updateUser(userId,userRequest);
+   @PatchMapping("/update")
+    public UserResponse updateUserInfo(HttpSession httpSession,@RequestBody UserRequest userRequest) {
+        LoginRes loginRes = (LoginRes) httpSession.getAttribute("user");
+       return userService.updateUser(loginRes.getUserId(), userRequest);
    }
 
 }

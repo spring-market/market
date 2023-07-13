@@ -30,7 +30,6 @@ public class ProductController {
     @GetMapping("/find-one")
     public ProductResponse findById(@Valid @RequestBody ProductIdDTO productIdDTO) {
         Long id = productIdDTO.getProductId();
-        System.out.println("################" + id);
         return productService.findById(id);
     }
     
@@ -39,13 +38,13 @@ public class ProductController {
     	productService.save(productRequest);
     }
 
-    @PatchMapping("/{id}")
-    public void updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequest productRequest) {
-        productService.update(id, productRequest);
+    @PatchMapping("/update")
+    public void updateProduct(@Valid @RequestBody ProductRequest productRequest) {
+        productService.update(productRequest.getProductId(), productRequest);
     }
 
-    @PatchMapping("/delete/{id}")
-    public void deleteProduct(@PathVariable Long id) {
-        productService.delete(id);
+    @PatchMapping("/delete")
+    public void deleteProduct(@Valid @RequestBody ProductIdDTO productIdDTO) {
+        productService.delete(productIdDTO.getProductId());
     }
 }
