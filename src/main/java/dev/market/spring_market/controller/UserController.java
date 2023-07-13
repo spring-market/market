@@ -5,7 +5,6 @@ import dev.market.spring_market.dto.LoginRes;
 import dev.market.spring_market.dto.UserRequest;
 import dev.market.spring_market.dto.UserResponse;
 import dev.market.spring_market.service.UserService;
-import dev.market.spring_market.utils.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final JwtService jwtService;
+
 
     //회원 마이페이지 정보 반환API
     @GetMapping("/{userId}")

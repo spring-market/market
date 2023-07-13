@@ -9,15 +9,9 @@ import dev.market.spring_market.repository.UserRepo;
 import dev.market.spring_market.utils.JwtService;
 import dev.market.spring_market.utils.SHA256;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -75,16 +69,17 @@ public class UserServiceImpl implements UserService{
     public LoginRes login(Long userId, @RequestBody LoginReq loginReq) {
         User user = userRepo.getReferenceById(userId);
         String pwd = SHA256.encrypt(loginReq.getPassword());
-        if(user.getUserEmail().equals(loginReq.getUserEmail()) && pwd.equals(user.getPassword())){
-           String jwt = jwtService.createJwt(user.getUserId());
+        if (user.getUserEmail().equals(loginReq.getUserEmail()) && pwd.equals(user.getPassword())) {
+            String jwt = jwtService.createJwt(user.getUserId());
 
             LoginRes loginRes = LoginRes.builder().userEmail(user.getUserEmail()).userId(user.getUserId()).jwt(jwt).nickname(user.getNickname()).gender(user.getGender()).build();
             return loginRes;
-        }
-        else{
+        } else {
             throw new IllegalStateException();
         }
-    public UserResponse updateUser(Long userId, UserRequest userRequest) {
+    }
+
+    public UserResponse updateUser(Long userId, @RequestBody UserRequest userRequest) {
         User user1 = userRepo.getReferenceById(userId);
        User user = new User(userId,userRequest.getUserEmail(),userRequest.getPassword(),userRequest.getNickname(), userRequest.getGender(),user1.getCreatedAt());
         User updateUser = userRepo.save(user);

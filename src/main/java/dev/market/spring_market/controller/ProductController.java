@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import dev.market.spring_market.dto.ProductIdDTO;
 import org.springframework.web.bind.annotation.*;
 
 import dev.market.spring_market.dto.ProductRequest;
@@ -26,8 +27,10 @@ public class ProductController {
         return productService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public ProductResponse findById(@PathVariable Long id) {
+    @GetMapping("/find-one")
+    public ProductResponse findById(@Valid @RequestBody ProductIdDTO productIdDTO) {
+        Long id = productIdDTO.getProductId();
+        System.out.println("################" + id);
         return productService.findById(id);
     }
     
