@@ -1,6 +1,7 @@
 package dev.market.spring_market.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -27,9 +28,8 @@ public class ProductController {
         return productService.findAll();
     }
 
-    @GetMapping("/find-one")
-    public ProductResponse findById(@Valid @RequestBody ProductIdDTO productIdDTO) {
-        Long id = productIdDTO.getProductId();
+    @GetMapping(value = "/find-one")
+    public ProductResponse findById(@RequestHeader("productId") Long id) {
         return productService.findById(id);
     }
 
