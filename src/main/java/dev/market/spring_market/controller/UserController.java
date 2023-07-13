@@ -52,7 +52,7 @@ public UserResponse deleteUserInfo(@RequestBody Long userId) {
     @PostMapping("/register")
     public UserResponse registerUser(@RequestBody UserRequest userRequest) {
         UserResponse userResponse = userService.registerUser(userRequest);
-        return userResponse;
+        return  userResponse;
 
    }
 
