@@ -1,4 +1,4 @@
-package dev.market.spring_market.DTO;
+package dev.market.spring_market.dto;
 
 import dev.market.spring_market.entity.ProductImg;
 import lombok.Builder;

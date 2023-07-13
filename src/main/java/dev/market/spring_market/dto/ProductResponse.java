@@ -5,9 +5,11 @@ import java.util.List;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 @Builder
 @Getter
+@ToString
 public class ProductResponse {
 
     private String title;
@@ -18,7 +20,7 @@ public class ProductResponse {
 
     private LocalDateTime createdAt;
 
-    private List<ProductImgReqRes> productImages;
+    private List<ProductImgResponse> productImages;
 
     private Long categoryId;
 }

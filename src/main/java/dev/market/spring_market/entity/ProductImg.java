@@ -1,5 +1,7 @@
 package dev.market.spring_market.entity;
 
+import dev.market.spring_market.common.BaseEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "product_image")
 @NoArgsConstructor
-public class ProductImg {
+public class ProductImg extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_image_id")
     private Long productImageId;
@@ -24,12 +26,11 @@ public class ProductImg {
     @Column(name = "product_image")
     private String productImage;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    private int status;
-
+    @Builder
+    public ProductImg(Long productImageId, Product product, String productImage) {
+        super(1);
+        this.productImageId = productImageId;
+        this.product = product;
+        this.productImage = productImage;
+    }
 }
