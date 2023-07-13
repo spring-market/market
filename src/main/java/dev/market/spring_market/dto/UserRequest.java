@@ -16,15 +16,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 
 public class UserRequest {
-    @NotNull
-    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")
+
+
     private String userEmail;
-    @NotNull
+
     private String password;
-    @NotNull
+
     private String nickname;
-    @NotNull
-    @Size(max = 1)
+
+
     private char gender;
 
     public UserRequest() {
