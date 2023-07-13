@@ -53,8 +53,6 @@ public class UserServiceImpl implements UserService{
 
     }
 
-
-
     @Override
     public UserResponse registerUser(UserRequest userRequest) {
 
@@ -73,6 +71,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+
     public LoginRes login(Long userId, @RequestBody LoginReq loginReq) {
         User user = userRepo.getReferenceById(userId);
         String pwd = SHA256.encrypt(loginReq.getPassword());
@@ -85,5 +84,13 @@ public class UserServiceImpl implements UserService{
         else{
             throw new IllegalStateException();
         }
+    public UserResponse updateUser(Long userId, UserRequest userRequest) {
+        User user1 = userRepo.getReferenceById(userId);
+       User user = new User(userId,userRequest.getUserEmail(),userRequest.getPassword(),userRequest.getNickname(), userRequest.getGender(),user1.getCreatedAt());
+        User updateUser = userRepo.save(user);
+        UserResponse userResponse = UserResponse.builder().userEmail(updateUser.getUserEmail()).nickname(updateUser.getNickname()).gender(updateUser.getGender()).build();
+
+        return userResponse;
+
     }
 }
