@@ -56,6 +56,16 @@ public class User extends BaseEntity {
         this.gender = gender;
     }
 
+    public User(Long userId, String userEmail, String password, String nickname, char gender, LocalDateTime createdAt) {
+        super(createdAt);
+        this.userId=userId;
+        this.userEmail = userEmail;
+        this.password = password;
+        this.nickname = nickname;
+        this.gender = gender;
+
+    }
+
     public User(Long userId, String userEmail, String password, String nickname, char gender, int status, LocalDateTime createdAt) {
         super(createdAt,status);
         this.userId=userId;

@@ -39,7 +39,12 @@ public class BaseEntity {
         this.status = status;
     }
 
+
+    public BaseEntity(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
     public BaseEntity(int status) {
         this.status = status;
+
     }
 }
