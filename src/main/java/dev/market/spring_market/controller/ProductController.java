@@ -27,9 +27,8 @@ public class ProductController {
         return productService.findAll();
     }
 
-    @GetMapping("/find-one")
-    public ProductResponse findById(@Valid @RequestBody ProductIdDTO productIdDTO) {
-        Long id = productIdDTO.getProductId();
+    @GetMapping(value = "/find-one")
+    public ProductResponse findById(@RequestHeader("productId") Long id) {
         return productService.findById(id);
     }
 

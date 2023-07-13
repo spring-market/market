@@ -1,9 +1,6 @@
 package dev.market.spring_market.controller;
 
-import dev.market.spring_market.dto.LoginReq;
-import dev.market.spring_market.dto.LoginRes;
-import dev.market.spring_market.dto.UserRequest;
-import dev.market.spring_market.dto.UserResponse;
+import dev.market.spring_market.dto.*;
 import dev.market.spring_market.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -40,12 +37,17 @@ public class UserController {
     }
 
 
-    @PatchMapping("/delete")
-    public UserResponse deleteUserInfo(HttpSession httpSession) {
-        LoginRes loginRes = (LoginRes) httpSession.getAttribute("user");
+//    @PatchMapping("/delete")
+//    public UserResponse deleteUserInfo(@RequestBody("userId") HttpSession httpSession) {
+//        LoginRes loginRes = (LoginRes) httpSession.getAttribute("user");
+//
+//        return userService.deleteUser(loginRes.getUserId());
+//    }
+@PatchMapping("/delete")
+public UserResponse deleteUserInfo(@RequestBody Long userId) {
 
-        return userService.deleteUser(loginRes.getUserId());
-    }
+    return userService.deleteUser(userId);
+}
 
     @PostMapping("/register")
     public UserResponse registerUser(@RequestBody UserRequest userRequest) {
