@@ -38,16 +38,22 @@ public class UserController {
 
 
 //    @PatchMapping("/delete")
-//    public UserResponse deleteUserInfo(@RequestBody("userId") HttpSession httpSession) {
+//    public UserResponse deleteUserInfo(@RequestBody HttpSession httpSession) {
 //        LoginRes loginRes = (LoginRes) httpSession.getAttribute("user");
 //
 //        return userService.deleteUser(loginRes.getUserId());
-//    }
-@PatchMapping("/delete")
-public UserResponse deleteUserInfo(@RequestBody Long userId) {
-
-    return userService.deleteUser(userId);
-}
+    }
+//@PatchMapping("/delete")
+//public UserResponse deleteUserInfo(HttpSession httpSession) {
+//    LoginRes loginRes = (LoginRes) httpSession.getAttribute("user");
+//    return userService.deleteUser(loginRes.getUserId());
+//}
+    @PatchMapping("/delete/{userId}")
+    public UserResponse deleteUserInfo(@PathVariable Long userId) {
+        {
+            return userService.deleteUser(userId);
+        }
+    }
 
     @PostMapping("/register")
     public UserResponse registerUser(@RequestBody UserRequest userRequest) {
